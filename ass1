@@ -18,3 +18,175 @@ class Solution {
         return ans;
     }
 }
+
+
+ **Q2.** Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
+Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do the following things:
+- Change the array nums such that the first k elements of nums contain the elements which are not equal to val. The remaining elements of nums are not important as well as the size of nums.
+- Return k.
+
+public class RemoveElement {
+
+    public int removeElement(int[] nums, int val) {
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            // If the element is not val
+            if (nums[i] != val) {
+                nums[count++] = nums[i];
+            }
+        }
+        return count;
+    }
+}
+
+ **Q3.** Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+You must write an algorithm with O(log n) runtime complexity
+
+
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+
+        int start = 0;
+        int end = nums.length - 1;
+        
+  
+        while( start <= end ) {
+            
+            int mid = (start + end) / 2;
+
+            if(nums[mid] == target) {
+                return mid;
+            }
+  
+            else if (target > nums[mid]) {
+                start = mid + 1;
+            }
+            
+             else {
+                end = mid - 1;
+            }
+        }
+        return end + 1;
+    }
+}
+
+
+ **Q4.** You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. 
+The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+Increment the large integer by one and return the resulting array of digits.
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+
+        int i = digits.length - 1;
+
+        while (i >=0 && digits[i] == 9) {
+            i --;
+        }
+        
+
+        if (i == -1) {
+            int[] result = new int[digits.length + 1];
+            result[0] = 1;
+            return result;
+        }
+        
+
+        int[] result = new int[digits.length];
+        
+        result[i] = digits[i] + 1;
+        for (int j = 0; j < i; j ++) {
+            result[j] = digits[j];
+        }
+        
+        return result;
+        
+    }
+}
+
+5 ) You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+The final sorted array should not be returned by the function, but instead be stored inside the array nums1. 
+To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
+public void merge(int A[], int m, int B[], int n) {
+        int insertIndex = m+n-1;
+        int indexA = m-1,indexB = n-1;
+        
+        while(indexB>=0){
+            if(indexA<0){
+                A[insertIndex--] = B[indexB--];
+            }else{
+                if(B[indexB]>=A[indexA]){
+                    A[insertIndex--] = B[indexB--];
+                }else{
+                    A[insertIndex--] = A[indexA--];
+                }
+            }
+        }
+    }
+    
+    Q6. Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+    
+    class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        for (int i = 1; i < nums.length; ++ i) {
+            for (int j = 0; j < i; ++ j) {
+                if (nums[i] == nums[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+} 
+
+ **Q7.** Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the nonzero elements.
+Note that you must do this in-place without making a copy of the array.
+
+ public void moveZeroes(int[] nums) {
+
+    // Start with the first position
+    int insertPosition = 0;
+
+    for (int i = 0; i < nums.length; i++) {
+      // Fill all non-zero numbers
+      if (nums[i] != 0) {
+        nums[insertPosition] = nums[i];
+        insertPosition++;
+      }
+    }
+
+    while (insertPosition < nums.length) {
+      nums[insertPosition++] = 0;
+    }
+  }
+  
+
+**Q8.** You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, 
+due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
+You are given an integer array nums representing the data status of this set after the error.
+Find the number that occurs twice and the number that is missing and return them in the form of an array.
+
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int N = nums.length, sum = N * (N + 1) / 2;
+        int[] ans = new int[2];
+        boolean[] seen = new boolean[N+1];
+        for (int num : nums) {
+            sum -= num;
+            if (seen[num]) ans[0] = num;
+            seen[num] = true;
+        }
+        ans[1] = sum + ans[0];
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
